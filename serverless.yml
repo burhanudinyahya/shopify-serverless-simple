@@ -1,0 +1,31 @@
+service: omnashopifytest
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  profile: serverlessUser
+  stage: dev
+  region: ap-southeast-1
+
+plugins:
+  - serverless-webpack
+
+package:
+  individually: true
+
+functions:
+  getProduct:
+    handler: lambdas/getProduct.handler
+    events:
+      - http:
+          path: product/{ID}
+          method: GET
+          cors: true
+  getProducts:
+    handler: lambdas/getProducts.handler
+    events:
+      - http:
+          path: products
+          method: GET
+          cors: true
